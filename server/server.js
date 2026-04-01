@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 app.use("/api/user", userRoute)
 
-app.use("/", (req, res) => {
+app.get("/", (req, res) => {
   res.send("API WORKING!")
 })
 

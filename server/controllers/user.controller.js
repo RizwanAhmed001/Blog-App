@@ -84,6 +84,14 @@ export const login = async (req, res) => {
         message: "Error while comparing password",
       });
     }
+
+    if (!isMatch) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+
     const token = jwt.sign({ id: emailExist._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
@@ -111,15 +119,16 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    res.removeCookie("token", {
-      httpOnly: true,
+    res.clearCookie("token", {
+      httpOnly: true, // secure (not accessible in JS)
       secure: process.env.NODE_ENV === "production", // change in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     });
 
-    return res.status(200).json({success: true, message: "Logged out successfully"})
-
+    return res
+      .status(200)
+      .json({ success: true, message: "Logged out successfully" });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
-}
+};
