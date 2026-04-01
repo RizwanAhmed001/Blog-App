@@ -9,7 +9,7 @@ const app = express();
 connectDB();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json());,
 app.use(cookieParser());
 
 app.use("/", (req, res) => {
