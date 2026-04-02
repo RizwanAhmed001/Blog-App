@@ -30,6 +30,13 @@ export const register = async (req, res) => {
         message: "Error while hashing password",
       });
     }
+    
+    if (!hashedPassword) {
+      return res.status(500).json({
+        success: false,
+        message: "Hashing failed",
+      });
+    }
 
     const newUser = new UserModel({ name, email, password: hashedPassword });
 
