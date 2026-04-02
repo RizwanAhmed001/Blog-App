@@ -19,12 +19,7 @@ const adminSchema = mongoose.Schema(
       type: String,
       required: true,
       minlength: 6,
-      maxlength: 20,
       trim: true,
-      match: [
-        /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@#$%^&*!]{6,}$/,
-        "Password must contain at least one letter and one number",
-      ],
     },
   },
   {

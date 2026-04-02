@@ -4,18 +4,21 @@ import bcrypt from "bcrypt";
 
 export const adminRegister = async (req, res) => {
   try {
-    const { name, email, password, adminkey } = req.body;
+    const { name, email, password } = req.body;
 
-    if (!name || !email || !password || !adminkey) {
+    if (!name || !email || !password) {
       return res
         .status(400)
         .json({ success: false, message: "All Fields Are Mandatory!" });
     }
 
-    if (adminkey !== process.env.ADMIN_SECRET_KEY) {
+    if (
+      email !== process.env.ADMIN_EMAIL ||
+      password !== process.env.ADMIN_PASSWORD
+    ) {
       return res.status(403).json({
         success: false,
-        message: "Invalid Admin Access!",
+        message: "Invalid Admin Credentials!",
       });
     }
 

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/mongoDB.js";
 import userRoute from "./routes/user.route.js";
+import adminRoute from "./routes/admin.route.js";
 dotenv.config();
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/user", userRoute)
+app.use("/api/admin", adminRoute);
 
 app.get("/", (req, res) => {
   res.send("API WORKING!")
