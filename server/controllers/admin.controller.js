@@ -76,3 +76,75 @@ export const adminRegister = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ success: false, message: "All Fields Are Mandatory!" });
+    }
+
+    const emailExist = await AdminModel.findOne({ email: email.toLowerCase() });
+
+    if (!emailExist) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Invalid Admin Credentials!" });
+    }
+
+    let isMatch;
+
+    try {
+      isMatch = await bcrypt.compare(password, emailExist.password);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Error While Hashing!" });
+    }
+
+    if (!isMatch) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Invalid Admin Credentials!" });
+    }
+
+    const token = jwt.sign({ id: emailExist._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
+    res.cookie("token", token, {
+      httpOnly: true, // secure (not accessible in JS)
+      secure: process.env.NODE_ENV === "production", // change in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      maxAge: 24 * 60 * 60 * 1000,
+    })
+
+    return res.status(200).json({
+      success: true,
+      message: "Admin Login Successful!",
+      admin: { name: emailExist.name, email: emailExist.email },
+    });
+
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const adminLogout = async (req, res) => {
+  try {
+    res.clearCookie("token", {
+      httpOnly: true, // secure (not accessible in JS)
+      secure: process.env.NODE_ENV === "production", // change in production
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    });
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Admin Logged out successfully" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+}
