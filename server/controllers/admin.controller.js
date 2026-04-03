@@ -56,7 +56,7 @@ export const adminRegister = async (req, res) => {
 
     await newAdmin.save();
 
-    const token = jwt.sign({ id: newAdmin._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: newAdmin._id, role: "admin" }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
 
@@ -111,7 +111,7 @@ export const adminLogin = async (req, res) => {
         .json({ success: false, message: "Invalid Admin Credentials!" });
     }
 
-    const token = jwt.sign({ id: emailExist._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: emailExist._id, role: "admin" }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
 
