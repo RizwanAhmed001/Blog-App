@@ -5,9 +5,11 @@ import cors from "cors";
 import connectDB from "./config/mongoDB.js";
 import userRoute from "./routes/user.route.js";
 import adminRoute from "./routes/admin.route.js";
+import cloudinaryConfig from "./config/cloudinary.js";
 dotenv.config();
 
 const app = express();
+cloudinaryConfig();
 connectDB();
 
 app.use(cors());
