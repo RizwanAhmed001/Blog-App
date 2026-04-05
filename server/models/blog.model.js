@@ -7,9 +7,9 @@ const blogSchema = mongoose.Schema(
       ref: "Admin",
     },
     image: { type: String, required: true },
-    blogtitle: { type: String, required: true, trim: true },
-    subtitle: { type: String, required: true, trim: true },
-    blogdescription: { type: String, required: true },
+    blogTitle: { type: String, required: true, trim: true },
+    subTitle: { type: String, required: true, trim: true },
+    blogDescription: { type: String, required: true },
     status: { type: Boolean, default: true },
     comments: [
       {
