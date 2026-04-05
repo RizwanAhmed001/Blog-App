@@ -41,3 +41,47 @@ export const createBlog = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const togglePublished = async (req, res) => {
+  try {
+
+    const {id} = req.admin;
+
+    if (!id) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Not Authorized!" });
+    }
+
+    const {blogid} = req.params;
+
+    if(!blogid){
+      return res
+        .status(404)
+        .json({ success: false, message: "Blog Id Is Required!" });
+    }
+
+    const blogPost = await BlogModel.findById(blogid);
+
+    if(!blogPost){
+      return res
+        .status(404)
+        .json({ success: false, message: "Blog Not Exist!" });
+    }
+
+    blogPost.status = !blogPost.status;
+
+    await blogPost.save();
+
+    return res.status(200).json({
+      success: true,
+      message: blogPost.status
+        ? "Blog Published"
+        : "Blog Unpublished",
+      status: blogPost.status,
+    });
+
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+}

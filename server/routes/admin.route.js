@@ -1,7 +1,7 @@
 import express from "express";
 import { adminLogin, adminLogout, adminRegister } from "../controllers/admin.controller.js";
 import upload from "../middlewares/multer.js";
-import { createBlog } from "../controllers/blog.controller.js";
+import { createBlog, togglePublished } from "../controllers/blog.controller.js";
 import { adminAuth } from "../middlewares/admin.auth.js";
 
 const adminRoute = express.Router();
@@ -10,6 +10,7 @@ adminRoute.post("/register", adminRegister);
 adminRoute.post("/login", adminLogin);
 adminRoute.post("/logout", adminLogout);
 
-adminRoute.post("/newblog", adminAuth, upload.single("file"), createBlog)
+adminRoute.post("/newblog", adminAuth, upload.single("file"), createBlog);
+adminRoute.put("/togglestatus/:blogid", adminAuth, togglePublished);
 
 export default adminRoute;
