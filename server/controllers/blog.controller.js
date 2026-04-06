@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import BlogModel from "../models/blog.model.js";
+import UserModel from "../models/user.model.js";
 
 export const createBlog = async (req, res) => {
   try {
@@ -30,13 +31,22 @@ export const createBlog = async (req, res) => {
     const result = await cloudinary.uploader.upload(req.file.path);
 
     const newBlog = new BlogModel({
-      admin: id, image: result.secure_url, blogTitle, subTitle, blogDescription
-    })
+      admin: id,
+      image: result.secure_url,
+      blogTitle,
+      subTitle,
+      blogDescription,
+    });
 
     await newBlog.save();
 
-    return res.status(201).json({ success: true, message: "New Blog Created!", blog: {image: newBlog.image, title: newBlog.blogTitle}});
-    
+    return res
+      .status(201)
+      .json({
+        success: true,
+        message: "New Blog Created!",
+        blog: { image: newBlog.image, title: newBlog.blogTitle },
+      });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
@@ -44,8 +54,7 @@ export const createBlog = async (req, res) => {
 
 export const togglePublished = async (req, res) => {
   try {
-
-    const {id} = req.admin;
+    const { id } = req.admin;
 
     if (!id) {
       return res
@@ -53,9 +62,9 @@ export const togglePublished = async (req, res) => {
         .json({ success: false, message: "Not Authorized!" });
     }
 
-    const {blogid} = req.params;
+    const { blogid } = req.params;
 
-    if(!blogid){
+    if (!blogid) {
       return res
         .status(404)
         .json({ success: false, message: "Blog Id Is Required!" });
@@ -63,7 +72,7 @@ export const togglePublished = async (req, res) => {
 
     const blogPost = await BlogModel.findById(blogid);
 
-    if(!blogPost){
+    if (!blogPost) {
       return res
         .status(404)
         .json({ success: false, message: "Blog Not Exist!" });
@@ -75,13 +84,60 @@ export const togglePublished = async (req, res) => {
 
     return res.status(200).json({
       success: true,
-      message: blogPost.status
-        ? "Blog Published"
-        : "Blog Unpublished",
+      message: blogPost.status ? "Blog Published" : "Blog Unpublished",
       status: blogPost.status,
     });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const addComment = async (req, res) => {
+  try {
+    const { id } = req.user;
+
+    if (!id) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Not Authorized!" });
+    }
+
+    const userExist = await UserModel.findById(id);
+
+    if(!userExist){
+      return res
+        .status(404)
+        .json({ success: false, message: "User Not Exist!" });
+    }
+
+    const {blogid} = req.params;
+
+    if(!blogid){
+      return res
+        .status(404)
+        .json({ success: false, message: "Blog Id Is Required!" });
+    }
+
+    const {name, comment} = req.body;
+
+    if(!name || !comment){
+      return res.status(400).json({success: false, message: "All Fields Are Mandatory!"})
+    }
+
+    const blog = await BlogModel.findById(blogid);
+
+    if(!blog){
+      return res.status(404).json({success: false, message: "Blog Not Exist!"})
+    }
+
+    blog.comments.push({ user: id, name, comment });
+
+    await blog.save();
+
+    return res.status(200).json({success: true, message: "New Comment Added", comment: comment})
+
 
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
-}
+};
