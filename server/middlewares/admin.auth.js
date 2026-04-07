@@ -13,7 +13,6 @@ export const adminAuth = async (req, res, next) => {
 
     const decode = jwt.verify(token, process.env.JWT_SECRET);
 
-    console.log(decode);
 
     if (decode.role !== "admin") {
       return res.status(403).json({

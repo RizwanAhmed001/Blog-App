@@ -19,6 +19,7 @@ const blogSchema = mongoose.Schema(
         },
         name: {type: String,},
         comment: {type: String},
+        approved: {type: Boolean, default: true}
       },
     ],
   },

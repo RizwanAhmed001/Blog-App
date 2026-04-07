@@ -141,3 +141,84 @@ export const addComment = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const deleteBlog = async (req, res) => {
+  try {
+    const {id} = req.admin;
+
+     if (!id) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Not Authorized!" });
+    }
+
+    const {blogid} = req.params;
+
+    const blogDeleted = await BlogModel.findByIdAndDelete(blogid);
+
+    if (!blogDeleted) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Blog Not Exist!" });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Blog Deleted",
+      blog: blogDeleted,
+    });
+
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+}
+
+export const deleteComment = async (req, res) => {
+  try {
+    const {id} = req.admin;
+    const {blogid, commentid} = req.params;
+
+    if (!id) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Not Authorized!" });
+    }
+
+    if(!blogid || !commentid){
+      return res
+        .status(404)
+        .json({ success: false, message: "Both Id's Are Required!" });
+    }
+
+    const blog = await BlogModel.findById(blogid);
+
+    if (!blog) {
+      return res.status(404).json({
+        success: false,
+        message: "Blog not found",
+      });
+    }
+
+    const comment = blog.comment.id(commentid);
+
+    if (!comment) {
+      return res.status(404).json({
+        success: false,
+        message: "Comment not found",
+      });
+    }
+
+    comment.deleteOne();
+
+    await blog.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Comment deleted",
+      comments: blog.comments,
+    });
+
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+}
