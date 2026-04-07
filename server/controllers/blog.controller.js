@@ -222,3 +222,53 @@ export const deleteComment = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 }
+
+export const toggleComment = async (req, res) => {
+  try {
+    const {id} = req.admin;
+    const {blogid, commentid} = req.params;
+
+    if (!id) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Not Authorized!" });
+    }
+
+    if(!blogid || !commentid){
+      return res
+        .status(404)
+        .json({ success: false, message: "Both Id's Are Required!" });
+    }
+
+    const blog = await BlogModel.findById(blogid);
+
+    if (!blog) {
+      return res.status(404).json({
+        success: false,
+        message: "Blog not found",
+      });
+    }
+
+    const comment = blog.comments.id(commentid);
+
+    if (!comment) {
+      return res.status(404).json({
+        success: false,
+        message: "Comment not found",
+      });
+    }
+
+    comment.approved = !comment.approved;
+
+    await blog.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Comment status updated",
+      comment,
+    });
+
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+}
