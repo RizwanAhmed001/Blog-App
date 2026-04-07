@@ -199,7 +199,7 @@ export const deleteComment = async (req, res) => {
       });
     }
 
-    const comment = blog.comment.id(commentid);
+    const comment = blog.comments.id(commentid);
 
     if (!comment) {
       return res.status(404).json({
