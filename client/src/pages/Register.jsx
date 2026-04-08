@@ -8,6 +8,24 @@ const Register = () => {
   const [login, setLogin] = useState(true);
   const [passwordVis, setPasswordVis] = useState(true);
 
+  const [userDetails, setUserDetails] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  })
+
+  const handleChange = (event) => {
+    const {name, value} = event.target;
+
+    setUserDetails((user) => ({
+      ...user,
+      [name]: value
+    }))
+    
+    console.log(userDetails);
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-6 w-[320px] shadow">
@@ -16,7 +34,7 @@ const Register = () => {
             <h2 className="text-xl font-bold">
               <span className="relative inline-block">
                 Re
-                <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-blue-500"></span>
+                <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-500"></span>
               </span>
               gistration
             </h2>
@@ -26,6 +44,9 @@ const Register = () => {
               <LuUser className="mr-2 text-gray-500" />
               <input
                 type="text"
+                name="name"
+                value={userDetails.name}
+                onChange={handleChange}
                 placeholder="Enter your name"
                 className="outline-none w-full bg-transparent"
                 required
@@ -37,6 +58,9 @@ const Register = () => {
               <MdOutlineEmail className="mr-2 text-gray-500" />
               <input
                 type="email"
+                name="email"
+                value={userDetails.email}
+                onChange={handleChange}
                 placeholder="Enter your email"
                 className="outline-none w-full bg-transparent"
                 required
@@ -48,6 +72,9 @@ const Register = () => {
               <IoLockClosedOutline className="mr-2 text-gray-500" />
               <input
                 type="password"
+                name="password"
+                value={userDetails.password}
+                onChange={handleChange}
                 placeholder="Create password"
                 className="outline-none w-full bg-transparent"
                 required
@@ -59,6 +86,9 @@ const Register = () => {
               <IoLockClosedOutline className="mr-2 text-gray-500" />
               <input
                 type={passwordVis ? "password" : "text"}
+                name="confirmPassword"
+                value={userDetails.confirmPassword}
+                onChange={handleChange}
                 placeholder="Confirm password"
                 className="outline-none w-full bg-transparent"
                 required
@@ -97,7 +127,7 @@ const Register = () => {
             <h2 className="text-xl font-bold">
               <span className="relative inline-block">
                 Lo
-                <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-blue-500"></span>
+                <span className="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-500"></span>
               </span>
               gin
             </h2>
@@ -107,6 +137,9 @@ const Register = () => {
               <MdOutlineEmail className="mr-2 text-gray-500" />
               <input
                 type="email"
+                name="email"
+                value={userDetails.email}
+                onChange={handleChange}
                 placeholder="Enter your email"
                 className="outline-none w-full bg-transparent"
                 required
@@ -118,6 +151,9 @@ const Register = () => {
               <IoLockClosedOutline className="mr-2 text-gray-500" />
               <input
                 type={passwordVis ? "password" : "text"}
+                name="confirmPassword"
+                value={userDetails.confirmPassword}
+                onChange={handleChange}
                 placeholder="Enter password"
                 className="outline-none w-full bg-transparent"
                 required
