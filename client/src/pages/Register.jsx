@@ -14,7 +14,7 @@ const Register = () => {
     // Register
       <form>
 
-        <h2><span>Re</span> <span>gistration</span></h2>
+        <h2><span>Re</span><span>gistration</span></h2>
 
         <div>
           <LuUser />
@@ -53,12 +53,7 @@ const Register = () => {
     // Login 
       <form>
 
-        <h2><span>Re</span> <span>gistration</span></h2>
-
-        <div>
-          <LuUser />
-          <input type="text" placeholder="Enter your name" name="name" required />
-        </div>
+        <h2><span>Lo</span><span>gin</span></h2>
 
         <div>
           <MdOutlineEmail />
@@ -67,12 +62,7 @@ const Register = () => {
 
         <div>
           <IoLockClosedOutline />
-          <input type="password" placeholder="Create password" name="password" />
-        </div>
-
-        <div>
-          <IoLockClosedOutline />
-          <input type={passwordVis ? "password" : "text"} placeholder="Confirm password" name="confirm password" />
+          <input type={passwordVis ? "password" : "text"} placeholder="Confirm a password" name="confirm password" />
 
           {
             passwordVis ? <FaRegEye onClick={() => setPasswordVis(false)}/> : <FaRegEyeSlash onClick={() => setPasswordVis(true)} />
