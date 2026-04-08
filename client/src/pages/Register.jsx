@@ -2,81 +2,157 @@ import { useState } from "react";
 import { LuUser } from "react-icons/lu";
 import { MdOutlineEmail } from "react-icons/md";
 import { IoLockClosedOutline } from "react-icons/io5";
-import { FaRegEye } from "react-icons/fa6";
-import { FaRegEyeSlash } from "react-icons/fa6";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 
 const Register = () => {
   const [login, setLogin] = useState(true);
   const [passwordVis, setPasswordVis] = useState(true);
-  return <div>
 
-    {!login && 
-    // Register
-      <form>
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="bg-white p-6 w-[320px] shadow">
+        {!login && (
+          <form className="flex flex-col gap-4">
+            <h2 className="text-xl font-bold">
+              <span className="relative inline-block">
+                Re
+                <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-blue-500"></span>
+              </span>
+              gistration
+            </h2>
 
-        <h2><span>Re</span><span>gistration</span></h2>
+            {/* Name */}
+            <div className="flex items-center border-b border-gray-400 py-2 focus-within:border-blue-500">
+              <LuUser className="mr-2 text-gray-500" />
+              <input
+                type="text"
+                placeholder="Enter your name"
+                className="outline-none w-full bg-transparent"
+                required
+              />
+            </div>
 
-        <div>
-          <LuUser />
-          <input type="text" placeholder="Enter your name" name="name" required />
-        </div>
+            {/* Email */}
+            <div className="flex items-center border-b border-gray-400 py-2 focus-within:border-blue-500">
+              <MdOutlineEmail className="mr-2 text-gray-500" />
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="outline-none w-full bg-transparent"
+                required
+              />
+            </div>
 
-        <div>
-          <MdOutlineEmail />
-          <input type="email" placeholder="Enter your email" name="email" />
-        </div>
+            {/* Password */}
+            <div className="flex items-center border-b border-gray-400 py-2 focus-within:border-blue-500">
+              <IoLockClosedOutline className="mr-2 text-gray-500" />
+              <input
+                type="password"
+                placeholder="Create password"
+                className="outline-none w-full bg-transparent"
+                required
+              />
+            </div>
 
-        <div>
-          <IoLockClosedOutline />
-          <input type="password" placeholder="Create password" name="password" />
-        </div>
+            {/* Confirm Password */}
+            <div className="flex items-center border-b border-gray-400 py-2 focus-within:border-blue-500">
+              <IoLockClosedOutline className="mr-2 text-gray-500" />
+              <input
+                type={passwordVis ? "password" : "text"}
+                placeholder="Confirm password"
+                className="outline-none w-full bg-transparent"
+                required
+              />
+              {passwordVis ? (
+                <FaRegEye
+                  className="cursor-pointer text-gray-500"
+                  onClick={() => setPasswordVis(false)}
+                />
+              ) : (
+                <FaRegEyeSlash
+                  className="cursor-pointer text-gray-500"
+                  onClick={() => setPasswordVis(true)}
+                />
+              )}
+            </div>
 
-        <div>
-          <IoLockClosedOutline />
-          <input type={passwordVis ? "password" : "text"} placeholder="Confirm password" name="confirm password" />
+            <button className="bg-blue-500 text-white py-2 hover:bg-blue-600 transition">
+              Register Now
+            </button>
 
-          {
-            passwordVis ? <FaRegEye onClick={() => setPasswordVis(false)}/> : <FaRegEyeSlash onClick={() => setPasswordVis(true)} />
-          }
+            <p className="text-sm text-center">
+              Already have an account?{" "}
+              <span
+                className="text-blue-500 cursor-pointer"
+                onClick={() => setLogin(true)}
+              >
+                Login now
+              </span>
+            </p>
+          </form>
+        )}
 
-        </div>
+        {login && (
+          <form className="flex flex-col gap-4">
+            <h2 className="text-xl font-bold">
+              <span className="relative inline-block">
+                Lo
+                <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-blue-500"></span>
+              </span>
+              gin
+            </h2>
 
-        <button>Register Now</button>
-        
-        <div>Aready have an account <span onClick={() => setLogin(true)}>Login now</span></div>
+            {/* Email */}
+            <div className="flex items-center border-b border-gray-400 py-2 focus-within:border-blue-500">
+              <MdOutlineEmail className="mr-2 text-gray-500" />
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="outline-none w-full bg-transparent"
+                required
+              />
+            </div>
 
+            {/* Password */}
+            <div className="flex items-center border-b border-gray-400 py-2 focus-within:border-blue-500">
+              <IoLockClosedOutline className="mr-2 text-gray-500" />
+              <input
+                type={passwordVis ? "password" : "text"}
+                placeholder="Enter password"
+                className="outline-none w-full bg-transparent"
+                required
+              />
+              {passwordVis ? (
+                <FaRegEye
+                  className="cursor-pointer text-gray-500"
+                  onClick={() => setPasswordVis(false)}
+                />
+              ) : (
+                <FaRegEyeSlash
+                  className="cursor-pointer text-gray-500"
+                  onClick={() => setPasswordVis(true)}
+                />
+              )}
+            </div>
 
-      </form>
-    }
+            <button className="bg-blue-500 text-white py-2 hover:bg-blue-600 transition">
+              Login Now
+            </button>
 
-    {login && 
-    // Login 
-      <form>
-
-        <h2><span>Lo</span><span>gin</span></h2>
-
-        <div>
-          <MdOutlineEmail />
-          <input type="email" placeholder="Enter your email" name="email" />
-        </div>
-
-        <div>
-          <IoLockClosedOutline />
-          <input type={passwordVis ? "password" : "text"} placeholder="Confirm a password" name="confirm password" />
-
-          {
-            passwordVis ? <FaRegEye onClick={() => setPasswordVis(false)}/> : <FaRegEyeSlash onClick={() => setPasswordVis(true)} />
-          }
-
-        </div>
-
-        <button>Register Now</button>
-        
-        <div>Aready have an account <span onClick={() => setLogin(true)}>Login now</span></div>
-      </form>
-    }
-    
-    </div>;
+            <p className="text-sm text-center">
+              Don’t have an account?{" "}
+              <span
+                className="text-blue-500 cursor-pointer"
+                onClick={() => setLogin(false)}
+              >
+                Signup now
+              </span>
+            </p>
+          </form>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Register;

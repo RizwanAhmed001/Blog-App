@@ -3,10 +3,12 @@ import Blogs from "./pages/Blogs";
 import Blog from "./pages/Blog";
 import Register from "./pages/Register";
 import Error from "./pages/Error";
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
     <div>
+      <ToastContainer />
       <Routes>
         <Route element={<Blogs />} path="/" />
         <Route element={<Blog />} path="/:blogid" />
