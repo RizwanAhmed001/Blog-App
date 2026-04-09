@@ -7,10 +7,10 @@ import BlogContextProvider from "./context/BlogContextProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BlogContextProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <BlogContextProvider>
         <App />
-      </BrowserRouter>
-    </BlogContextProvider>
+      </BlogContextProvider>
+    </BrowserRouter>
   </StrictMode>,
 );

@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LuUser } from "react-icons/lu";
 import { MdOutlineEmail } from "react-icons/md";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import { toast } from "react-toastify";
+import { useContext } from "react";
+import BlogContext from "../context/BlogContext";
+import axios from "axios";
 
 const Register = () => {
+  const { backendUrl, setUser, navigate, user } = useContext(BlogContext);
+
   const [login, setLogin] = useState(true);
   const [passwordVis, setPasswordVis] = useState(true);
 
@@ -12,25 +18,95 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
-    confirmPassword: ""
-  })
+    confirmPassword: "",
+  });
 
   const handleChange = (event) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
 
     setUserDetails((user) => ({
       ...user,
-      [name]: value
-    }))
-    
+      [name]: value,
+    }));
+
     console.log(userDetails);
-  }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      if (!login) {
+        if (userDetails.password !== userDetails.confirmPassword) {
+          toast.info("Mismatch in confirm password!");
+          return;
+        }
+
+        const response = await axios.post(
+          backendUrl + "/register",
+          {
+            name: userDetails.name,
+            email: userDetails.email,
+            password: userDetails.password,
+          },
+          { withCredentials: true },
+        );
+
+        if (response.data.success) {
+          setUser(response.data.user);
+          localStorage.setItem("user", JSON.stringify(response.data.user));
+          setUserDetails({
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          });
+          navigate("/");
+        } else {
+          toast.warning(response.data.message);
+        }
+
+        console.log(response);
+      } else {
+        const response = await axios.post(
+          backendUrl + "/login",
+          {
+            email: userDetails.email,
+            password: userDetails.confirmPassword,
+          },
+          { withCredentials: true },
+        );
+
+        if (response.data.success) {
+          setUser(response.data.user);
+          localStorage.setItem("user", JSON.stringify(response.data.user));
+          setUserDetails({
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          });
+          navigate("/");
+        } else {
+          toast.warning(response.data.message);
+        }
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-6 w-[320px] shadow">
         {!login && (
-          <form className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <h2 className="text-xl font-bold">
               <span className="relative inline-block">
                 Re
@@ -123,7 +199,7 @@ const Register = () => {
         )}
 
         {login && (
-          <form className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <h2 className="text-xl font-bold">
               <span className="relative inline-block">
                 Lo
