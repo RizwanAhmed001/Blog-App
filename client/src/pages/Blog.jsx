@@ -1,7 +1,7 @@
 const Blog = () => {
   return (
     <div>
-      Blog
+      Dymanic conetnt is shown here
     </div>
   )
 }
