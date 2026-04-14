@@ -25,7 +25,7 @@ function App() {
       <div className="max-w-7xl mx-auto px-4 py-6">
         <Routes>
           <Route element={<Blogs />} path="/" />
-          <Route element={<Blog />} path="/:blogid" />
+          <Route element={<Blog />} path="/blogs/:blogid" />
           <Route element={<Register />} path="/register" />
           <Route element={<Error />} path="*" />
         </Routes>
