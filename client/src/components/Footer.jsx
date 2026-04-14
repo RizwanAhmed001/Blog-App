@@ -2,7 +2,7 @@ import { FaRegCopyright } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="bg-gray-900 text-gray-300 mt-10">
+    <div className="bg-gray-900 text-gray-300">
       
       {/* Top Section */}
       <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">

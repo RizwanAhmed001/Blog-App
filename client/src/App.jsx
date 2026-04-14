@@ -23,7 +23,7 @@ function App() {
 
       {/* Header */}
       {!hideLayout && (
-        <header className="shadow-sm bg-white/90 backdrop-blur sticky top-0 z-50 border-b">
+        <header className="shadow-sm bg-white/90 backdrop-blur z-50 border-b">
           <Hearder />
         </header>
       )}

@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react"
 import BlogContext from "../context/BlogContext"
+import Email from "../components/Email";
 
 const Blogs = () => {
 
@@ -13,6 +14,8 @@ const Blogs = () => {
   return (
     <div>
       Blogs
+
+      <Email />
     </div>
   )
 }
