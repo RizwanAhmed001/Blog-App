@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { LuUser } from "react-icons/lu";
 import { MdOutlineEmail } from "react-icons/md";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { toast } from "react-toastify";
-import { useContext } from "react";
 import BlogContext from "../context/BlogContext";
 import axios from "axios";
 
@@ -28,7 +27,6 @@ const Register = () => {
       ...user,
       [name]: value,
     }));
-
   };
 
   const handleSubmit = async (event) => {
@@ -48,13 +46,13 @@ const Register = () => {
             email: userDetails.email,
             password: userDetails.password,
           },
-          { withCredentials: true },
+          { withCredentials: true }
         );
 
         if (response.data.success) {
           setUser(response.data.user);
           localStorage.setItem("user", JSON.stringify(response.data.user));
-          toast.success("User Register!")
+          toast.success("User Register!");
           setUserDetails({
             name: "",
             email: "",
@@ -65,7 +63,6 @@ const Register = () => {
         } else {
           toast.warning(response.data.message);
         }
-
       } else {
         const response = await axios.post(
           backendUrl + "/login",
@@ -73,13 +70,13 @@ const Register = () => {
             email: userDetails.email,
             password: userDetails.confirmPassword,
           },
-          { withCredentials: true },
+          { withCredentials: true }
         );
 
         if (response.data.success) {
           setUser(response.data.user);
           localStorage.setItem("user", JSON.stringify(response.data.user));
-          toast.success("User Login!")
+          toast.success("User Login!");
           setUserDetails({
             name: "",
             email: "",
@@ -103,10 +100,13 @@ const Register = () => {
   }, [user]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-6 w-[320px] shadow">
+    <div className="h-screen flex items-center justify-center bg-gray-100 px-4">
+      
+      <div className="bg-white p-5 w-full max-w-sm shadow-lg rounded-xl max-h-[90vh] overflow-y-auto">
+        
         {!login && (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+            
             <h2 className="text-xl font-bold">
               <span className="relative inline-block">
                 Re
@@ -182,14 +182,14 @@ const Register = () => {
               )}
             </div>
 
-            <button className="bg-blue-500 text-white py-2 hover:bg-blue-600 transition">
+            <button className="bg-blue-900 text-white py-2 rounded-lg hover:bg-blue-800 transition">
               Register Now
             </button>
 
             <p className="text-sm text-center">
               Already have an account?{" "}
               <span
-                className="text-blue-500 cursor-pointer"
+                className="text-blue-600 cursor-pointer"
                 onClick={() => setLogin(true)}
               >
                 Login now
@@ -199,7 +199,8 @@ const Register = () => {
         )}
 
         {login && (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+            
             <h2 className="text-xl font-bold">
               <span className="relative inline-block">
                 Lo
@@ -247,14 +248,14 @@ const Register = () => {
               )}
             </div>
 
-            <button className="bg-blue-500 text-white py-2 hover:bg-blue-600 transition">
+            <button className="bg-blue-900 text-white py-2 rounded-lg hover:bg-blue-800 transition">
               Login Now
             </button>
 
             <p className="text-sm text-center">
               Don’t have an account?{" "}
               <span
-                className="text-blue-500 cursor-pointer"
+                className="text-blue-600 cursor-pointer"
                 onClick={() => setLogin(false)}
               >
                 Signup now
@@ -262,6 +263,7 @@ const Register = () => {
             </p>
           </form>
         )}
+
       </div>
     </div>
   );
