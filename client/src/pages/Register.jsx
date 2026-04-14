@@ -29,7 +29,6 @@ const Register = () => {
       [name]: value,
     }));
 
-    console.log(userDetails);
   };
 
   const handleSubmit = async (event) => {
@@ -55,6 +54,7 @@ const Register = () => {
         if (response.data.success) {
           setUser(response.data.user);
           localStorage.setItem("user", JSON.stringify(response.data.user));
+          toast.success("User Register!")
           setUserDetails({
             name: "",
             email: "",
@@ -66,7 +66,6 @@ const Register = () => {
           toast.warning(response.data.message);
         }
 
-        console.log(response);
       } else {
         const response = await axios.post(
           backendUrl + "/login",
@@ -80,6 +79,7 @@ const Register = () => {
         if (response.data.success) {
           setUser(response.data.user);
           localStorage.setItem("user", JSON.stringify(response.data.user));
+          toast.success("User Login!")
           setUserDetails({
             name: "",
             email: "",
