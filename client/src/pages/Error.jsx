@@ -4,7 +4,7 @@ const Error = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex items-center justify-center h-[80vh] px-4 bg-gradient-to-br from-gray-100 to-gray-200">
+    <div className="flex items-center justify-center h-[80vh] px-4 bg-linear-to-br from-gray-100 to-gray-200">
       
       <div className="bg-white shadow-lg rounded-2xl p-6 max-w-md w-full text-center">
         

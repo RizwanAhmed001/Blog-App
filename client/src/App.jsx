@@ -5,31 +5,47 @@ import Register from "./pages/Register";
 import Error from "./pages/Error";
 import { ToastContainer } from "react-toastify";
 import Hearder from "./components/Hearder";
+import Footer from "./components/Footer";
 
 function App() {
   const location = useLocation();
 
+  const hideLayout =
+    location.pathname === "/register" ||
+    (!["/", "/register"].includes(location.pathname) &&
+      !location.pathname.startsWith("/blogs/"));
+
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-800">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800">
+      
       {/* Toast */}
-      <ToastContainer />
+      <ToastContainer position="top-right" autoClose={3000} />
 
       {/* Header */}
-      {location.pathname === "/register" ? null : (
-        <div className="shadow-md bg-white sticky top-0 z-50">
+      {!hideLayout && (
+        <header className="shadow-sm bg-white/90 backdrop-blur sticky top-0 z-50 border-b">
           <Hearder />
-        </div>
+        </header>
       )}
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-6">
-        <Routes>
-          <Route element={<Blogs />} path="/" />
-          <Route element={<Blog />} path="/blogs/:blogid" />
-          <Route element={<Register />} path="/register" />
-          <Route element={<Error />} path="*" />
-        </Routes>
-      </div>
+      <main className="flex-grow w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <Routes>
+            <Route element={<Blogs />} path="/" />
+            <Route element={<Blog />} path="/blogs/:blogid" />
+            <Route element={<Register />} path="/register" />
+            <Route element={<Error />} path="*" />
+          </Routes>
+        </div>
+      </main>
+
+      {/* Footer */}
+      {!hideLayout && (
+        <footer className="mt-auto border-t border-gray-200">
+          <Footer />
+        </footer>
+      )}
     </div>
   );
 }

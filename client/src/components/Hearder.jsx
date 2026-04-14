@@ -15,6 +15,7 @@ const Hearder = () => {
       if(response.data.success){
         setUser(null);
         localStorage.removeItem("user")
+        navigate("/register");
       }else{
         toast.warning(response.data.message);
       }
