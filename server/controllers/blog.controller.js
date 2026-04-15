@@ -272,3 +272,30 @@ export const toggleComment = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 }
+
+export const getAllBlogs = async (req, res) => {
+  try {
+    const { id } = req.user;
+
+    if (!id) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Not Authorized!" });
+    }
+
+    const userExist = await UserModel.findById(id);
+
+    if(!userExist){
+      return res
+        .status(404)
+        .json({ success: false, message: "User Not Exist!" });
+    }
+    
+    const allBlogs = await BlogModel.find();
+
+    return res.status(200).json({success: true, message: "All Blogs Recieved!", allBlogs});
+
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+}
