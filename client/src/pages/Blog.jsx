@@ -75,7 +75,7 @@ const Blog = () => {
       <img
         src={sinBlog.image}
         alt="blog"
-        className="w-full h-[300px] md:h-[400px] object-cover rounded-xl shadow-md mb-8"
+        className="w-full h-75 md:h-100 object-cover rounded-xl shadow-md mb-8"
       />
 
       {/* Content */}
@@ -124,7 +124,7 @@ const Blog = () => {
             ></textarea>
 
             {/* ✅ Small Left Button */}
-            <button className="bg-blue-900 text-white px-5 py-2 rounded w-fit hover:bg-blue-600 transition">
+            <button className="bg-blue-900 text-white px-5 py-2 rounded w-fit hover:bg-blue-800 transition">
               Submit
             </button>
           </div>

@@ -70,7 +70,7 @@ const Blogs = () => {
           <input
             type="text"
             placeholder="Search for blogs"
-            className="flex-grow px-4 py-3 outline-none text-sm"
+            className="grow px-4 py-3 outline-none text-sm"
           />
           <button
             className="px-6 bg-blue-900 text-white hover:bg-blue-800 transition"
