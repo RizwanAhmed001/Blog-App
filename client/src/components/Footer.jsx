@@ -56,7 +56,7 @@ const Footer = () => {
       {/* Bottom Section */}
       <div className="border-t border-gray-700 text-center py-4 text-sm">
         <p className="flex items-center justify-center gap-1">
-          Copyright 2016 <FaRegCopyright /> Quickblog Rizwan - All Right Reserved.
+          Copyright 2026 <FaRegCopyright /> Quickblog Rizwan - All Right Reserved.
         </p>
       </div>
 

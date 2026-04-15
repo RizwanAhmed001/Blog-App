@@ -3,6 +3,7 @@ import BlogContext from "../context/BlogContext"
 import { FaArrowRightLong } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Hearder = () => {
 
@@ -26,9 +27,9 @@ const Hearder = () => {
 
   return (
     <div className="flex items-center justify-between px-6 py-4 bg-white shadow-md">
-      <h1 className="text-2xl font-bold text-black cursor-pointer">
+      <Link to="/" className="text-2xl font-bold text-black cursor-pointer">
         <span className="text-blue-900">Quick</span>blog
-      </h1>
+      </Link>
 
       <div>
         {

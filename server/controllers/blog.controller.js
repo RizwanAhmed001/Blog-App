@@ -299,3 +299,42 @@ export const getAllBlogs = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 }
+
+export const getSingleBlog = async (req, res) => {
+  try {
+    const { id } = req.user;
+
+    const {blogid} = req.params;
+
+    if (!id) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Not Authorized!" });
+    }
+
+    if(!blogid){
+      return res
+        .status(403)
+        .json({ success: false, message: "Blogid IS Required!" });
+    }
+
+    const userExist = await UserModel.findById(id);
+
+    if(!userExist){
+      return res
+        .status(404)
+        .json({ success: false, message: "User Not Exist!" });
+    }
+    
+    const singleBlog = await BlogModel.findById(blogid);
+
+    if(!singleBlog){
+      return res.status(404).json({success: false, message: "No Such Blog!", singleBlog});
+    }
+
+    return res.status(200).json({success: true, message: "Blog Recieved!", singleBlog});
+
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+}
