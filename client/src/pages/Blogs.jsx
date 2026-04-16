@@ -11,6 +11,7 @@ const Blogs = () => {
 
   const [allBlogs, setAllBlogs] = useState([]);
   const [searchBlog, setSearchBlog] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     if (!user) {
@@ -35,50 +36,60 @@ const Blogs = () => {
     }
   };
 
+  const handleSearch = (event) => {
+    const value = event.target.value;
+    setSearch(value);
+
+    if (!value.trim()) {
+      setSearchBlog(allBlogs);
+      return;
+    }
+
+    const filterBlog = allBlogs.filter((blog) =>
+      `${blog.blogTitle} ${blog.subTitle}`
+        .toLowerCase()
+        .includes(value.toLowerCase()),
+    );
+
+    setSearchBlog(filterBlog);
+  };
+
   useEffect(() => {
     getBlogs();
   }, []);
 
-
   return (
     <div className="px-4 md:px-10 py-8">
-      
       {/* Center Section */}
       <div className="text-center mb-10">
-
-        {/* ✨ Typewriter Box */}
         <div className="inline-flex items-center gap-2 border border-blue-200 bg-blue-50 text-blue-700 px-4 py-1 rounded-full text-sm mb-4">
           <BsStars />
           <span className="font-medium">New: feature integrated</span>
         </div>
 
-        {/* Heading */}
         <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
           Your own <span className="text-blue-900">blogging</span> <br />
           platform.
         </h2>
 
-        {/* Paragraph */}
         <p className="text-gray-600 text-sm md:text-base max-w-2xl mx-auto mb-6">
           This is your space to think out loud, to share what matters, and to
-          write without filters. Whether it's one word or a thousand, your story
-          starts right here.
+          write without filters.
         </p>
 
         {/* Search */}
         <div className="flex w-full max-w-md mx-auto border border-gray-300 rounded overflow-hidden">
           <input
             type="text"
+            value={search}
+            onChange={handleSearch}
             placeholder="Search for blogs"
             className="grow px-4 py-3 outline-none text-sm"
           />
-          <button
-            className="px-6 bg-blue-900 text-white hover:bg-blue-800 transition"
-          >
+          <button className="px-6 bg-blue-900 text-white hover:bg-blue-800 transition">
             Search
           </button>
         </div>
-
       </div>
 
       {/* Blog Grid */}
