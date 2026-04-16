@@ -10,6 +10,10 @@ const Blog = () => {
 
   const { user, backendUrl, navigate } = useContext(BlogContext);
 
+  const [userComment, setUserComment] = useState({ name: "", comment: "" });
+
+  const [render, setRender] = useState(true);
+
   const [sinBlog, setSinBlog] = useState({
     comments: [],
   });
@@ -36,9 +40,35 @@ const Blog = () => {
     }
   };
 
+  const hanndleChange = (event) => {
+    const { name, value } = event.target;
+    setUserComment((comment) => ({
+      ...comment,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(
+        backendUrl + `/comment/${blogid}`,
+        userComment,
+        { withCredentials: true },
+      );
+      if (response.data.success) {
+        toast.success("Comment Added");
+        setUserComment({ name: "", comment: "" });
+        setRender(!render)
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     singleBlog();
-  }, []);
+  }, [render]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
@@ -84,7 +114,7 @@ const Blog = () => {
       </div>
 
       {/* Comments */}
-      <div className="border-t pt-6">
+      <div className="pt-6">
         <h3 className="text-xl font-semibold mb-4">
           Comments ({sinBlog.comments.length})
         </h3>
@@ -92,11 +122,14 @@ const Blog = () => {
         {/* Comments List */}
         {sinBlog.comments.length > 0 ? (
           sinBlog.comments.map((comment) => (
-            <div key={comment._id} className="border-b py-4 flex gap-3">
+            <div
+              key={comment?._id}
+              className="p-2 rounded py-4 flex mb-3 gap-3 bg-gray-200 w-full"
+            >
               <CgProfile className="text-2xl text-gray-500" />
               <div>
-                <h4 className="font-semibold text-gray-800">{comment.name}</h4>
-                <p className="text-gray-600 text-sm">{comment.comment}</p>
+                <h4 className="font-semibold text-gray-800">{comment?.name}</h4>
+                <p className="text-gray-600 text-sm">{comment?.comment}</p>
               </div>
             </div>
           ))
@@ -108,16 +141,25 @@ const Blog = () => {
         <div className="mt-8">
           <h3 className="text-lg font-semibold mb-4">Add your comment</h3>
 
-          <div className="flex flex-col gap-4 max-w-md">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-4 max-w-md"
+          >
             {/* Name */}
             <input
               type="text"
+              name="name"
+              value={userComment.name}
+              onChange={hanndleChange}
               placeholder="Your name"
               className="border border-gray-300 px-3 py-2 rounded outline-none"
             />
 
             {/* Comment */}
             <textarea
+              value={userComment.comment}
+              name="comment"
+              onChange={hanndleChange}
               placeholder="Write your comment..."
               rows="4"
               className="border border-gray-300 px-3 py-2 rounded outline-none"
@@ -127,7 +169,7 @@ const Blog = () => {
             <button className="bg-blue-900 text-white px-5 py-2 rounded w-fit hover:bg-blue-800 transition">
               Submit
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
