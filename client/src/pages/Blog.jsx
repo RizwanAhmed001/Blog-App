@@ -32,11 +32,10 @@ const Blog = () => {
 
       if (response.data.success) {
         setSinBlog(response.data.singleBlog);
-      } else {
-        toast.warn(response.data.message);
       }
     } catch (error) {
       toast.error(error.message);
+      navigate("/")
     }
   };
 

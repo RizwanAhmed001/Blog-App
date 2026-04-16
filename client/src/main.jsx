@@ -6,11 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 import BlogContextProvider from "./context/BlogContextProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
     <BrowserRouter>
       <BlogContextProvider>
         <App />
       </BlogContextProvider>
     </BrowserRouter>
-  </StrictMode>,
 );
