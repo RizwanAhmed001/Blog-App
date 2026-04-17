@@ -14,22 +14,22 @@ connectDB();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    credentials: true
-  })
+    origin: ["http://localhost:5173", "http://localhost:5174"],
+    credentials: true,
+  }),
 );
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api/user", userRoute)
+app.use("/api/user", userRoute);
 app.use("/api/admin", adminRoute);
 
 app.get("/", (req, res) => {
-  res.send("API WORKING!")
-})
+  res.send("API WORKING!");
+});
 
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
-  console.log(`Server Running At Port http://localhost:${port}`)
-})
+  console.log(`Server Running At Port http://localhost:${port}`);
+});
