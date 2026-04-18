@@ -1,7 +1,16 @@
+ import { ToastContainer } from 'react-toastify';
+import Hearder from './components\'/Header';
+
 function App() {
 
   return (
-    <div className="bg-red-500">Admin</div>
+    <div>
+      <ToastContainer />
+      <Hearder />
+      <div>
+        
+      </div>
+    </div>
   )
 }
 
