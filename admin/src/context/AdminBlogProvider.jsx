@@ -6,12 +6,16 @@ const AdminBlogProvider = ({children}) => {
   
   const [admin, setAdmin] = useState(null);
 
+  const [currentPage, setCurrentPage] = useState("");
+
   const navigate = useNavigate();
 
   const adminValue = {
     admin,
     setAdmin,
-    navigate
+    navigate,
+    currentPage,
+    setCurrentPage
   }
 
   return (
