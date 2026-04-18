@@ -4,6 +4,7 @@ import { HiOutlineClipboardList } from "react-icons/hi";
 import { FaRegCommentDots } from "react-icons/fa";
 import { useContext } from "react";
 import AdminBlog from "../context/AdminBlog";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
 
@@ -25,25 +26,25 @@ const Sidebar = () => {
       flex md:flex-col justify-around md:justify-start
     ">
       
-      <div onClick={() => setCurrentPage("Dashboard")} className={getClass("Dashboard")}>
+      <Link to={"/"} onClick={() => setCurrentPage("Dashboard")} className={getClass("Dashboard")}>
         <TbSmartHome />
         <h2 className="hidden sm:block">Dashboard</h2>
-      </div>
+      </Link>
 
-      <div onClick={() => setCurrentPage("add")} className={getClass("add")}>
+      <Link to={"/addBlog"} onClick={() => setCurrentPage("add")} className={getClass("add")}>
         <TbLibraryPlus />
         <h2 className="hidden sm:block">Add Blog</h2>
-      </div>
+      </Link>
 
-      <div onClick={() => setCurrentPage("blog")} className={getClass("blog")}>
+      <Link to={"/blogLists"} onClick={() => setCurrentPage("blog")} className={getClass("blog")}>
         <HiOutlineClipboardList />
         <h2 className="hidden sm:block">Blog Lists</h2>
-      </div>
+      </Link>
 
-      <div onClick={() => setCurrentPage("comment")} className={getClass("comment")}>
+      <Link to={"/comments"} onClick={() => setCurrentPage("comment")} className={getClass("comment")}>
         <FaRegCommentDots />
         <h2 className="hidden sm:block">Comments</h2>
-      </div>
+      </Link>
 
     </div>
   );
