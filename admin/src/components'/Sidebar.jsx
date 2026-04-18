@@ -7,7 +7,6 @@ import AdminBlog from "../context/AdminBlog";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
-
   const { currentPage, setCurrentPage } = useContext(AdminBlog);
 
   const getClass = (page) =>
@@ -19,33 +18,50 @@ const Sidebar = () => {
      }`;
 
   return (
-    <div className="
+    <div
+      className="
       w-full md:w-64 
-      h-auto md:h-screen 
-      bg-gray-100 
-      flex md:flex-col justify-around md:justify-start
-    ">
-      
-      <Link to={"/"} onClick={() => setCurrentPage("Dashboard")} className={getClass("Dashboard")}>
+  h-[85vh] 
+  overflow-y-auto
+  border-r-2 border-gray-100 
+  flex md:flex-col justify-around md:justify-start
+    "
+    >
+      <Link
+        to={"/"}
+        onClick={() => setCurrentPage("Dashboard")}
+        className={getClass("Dashboard")}
+      >
         <TbSmartHome />
         <h2 className="hidden sm:block">Dashboard</h2>
       </Link>
 
-      <Link to={"/addBlog"} onClick={() => setCurrentPage("add")} className={getClass("add")}>
+      <Link
+        to={"/addBlog"}
+        onClick={() => setCurrentPage("add")}
+        className={getClass("add")}
+      >
         <TbLibraryPlus />
         <h2 className="hidden sm:block">Add Blog</h2>
       </Link>
 
-      <Link to={"/blogLists"} onClick={() => setCurrentPage("blog")} className={getClass("blog")}>
+      <Link
+        to={"/blogLists"}
+        onClick={() => setCurrentPage("blog")}
+        className={getClass("blog")}
+      >
         <HiOutlineClipboardList />
         <h2 className="hidden sm:block">Blog Lists</h2>
       </Link>
 
-      <Link to={"/comments"} onClick={() => setCurrentPage("comment")} className={getClass("comment")}>
+      <Link
+        to={"/comments"}
+        onClick={() => setCurrentPage("comment")}
+        className={getClass("comment")}
+      >
         <FaRegCommentDots />
         <h2 className="hidden sm:block">Comments</h2>
       </Link>
-
     </div>
   );
 };
