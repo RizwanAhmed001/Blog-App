@@ -56,9 +56,7 @@ export const adminRegister = async (req, res) => {
 
     await newAdmin.save();
 
-    const token = jwt.sign({ id: newAdmin._id, role: "admin" }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign({ id: newAdmin._id, role: "admin" }, process.env.JWT_SECRET);
 
     res.cookie("token", token, {
       httpOnly: true, // secure (not accessible in JS)
@@ -111,9 +109,7 @@ export const adminLogin = async (req, res) => {
         .json({ success: false, message: "Invalid Admin Credentials!" });
     }
 
-    const token = jwt.sign({ id: emailExist._id, role: "admin" }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign({ id: emailExist._id, role: "admin" }, process.env.JWT_SECRET);
 
     res.cookie("token", token, {
       httpOnly: true, // secure (not accessible in JS)

@@ -42,9 +42,7 @@ export const register = async (req, res) => {
 
     await newUser.save();
 
-    const token = jwt.sign({ id: newUser._id, role: "user" }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign({ id: newUser._id, role: "user" }, process.env.JWT_SECRET);
 
     res.cookie("token", token, {
       httpOnly: true, // secure (not accessible in JS)
@@ -99,9 +97,7 @@ export const login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ id: emailExist._id, role: "user" }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
-    });
+    const token = jwt.sign({ id: emailExist._id, role: "user" }, process.env.JWT_SECRET);
 
     res.cookie("token", token, {
       httpOnly: true, // secure (not accessible in JS)
