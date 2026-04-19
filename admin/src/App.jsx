@@ -13,23 +13,28 @@ function App() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="h-screen flex flex-col bg-gray-100">
       <ToastContainer />
 
       {location.pathname === "/login" ? (
         <AdminLogin />
       ) : (
-        <div className="flex flex-col h-screen">
-          <div className="h-[10vh] shadow bg-white z-10">
+        <>
+          {/* HEADER */}
+          <header className="h-[70px] bg-white shadow flex-shrink-0 z-10">
             <Header />
-          </div>
+          </header>
 
+          {/* BODY */}
           <div className="flex flex-1 overflow-hidden">
-            <div className="w-64 bg-white border-r h-full overflow-y-auto">
+            
+            {/* SIDEBAR */}
+            <aside className="w-64 bg-white border-r shadow-sm overflow-y-auto">
               <Sidebar />
-            </div>
+            </aside>
 
-            <div className="flex-1 p-6 overflow-y-auto">
+            {/* MAIN CONTENT */}
+            <main className="flex-1 overflow-y-auto p-6">
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/addblog" element={<AddBlog />} />
@@ -37,9 +42,10 @@ function App() {
                 <Route path="/comments" element={<Comments />} />
                 <Route path="*" element={<Error />} />
               </Routes>
-            </div>
+            </main>
+
           </div>
-        </div>
+        </>
       )}
     </div>
   );

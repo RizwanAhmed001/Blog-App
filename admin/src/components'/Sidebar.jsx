@@ -1,5 +1,4 @@
-import { TbSmartHome } from "react-icons/tb";
-import { TbLibraryPlus } from "react-icons/tb";
+import { TbSmartHome, TbLibraryPlus } from "react-icons/tb";
 import { HiOutlineClipboardList } from "react-icons/hi";
 import { FaRegCommentDots } from "react-icons/fa";
 import { useContext } from "react";
@@ -10,58 +9,52 @@ const Sidebar = () => {
   const { currentPage, setCurrentPage } = useContext(AdminBlog);
 
   const getClass = (page) =>
-    `flex items-center gap-3 p-2 md:p-3 cursor-pointer transition-all
-     ${
-       currentPage === page
-         ? "bg-blue-100 border-r-4 md:border-r-4 border-b-2 md:border-b-0 border-blue-900 text-blue-900"
-         : "text-gray-700 hover:bg-gray-200"
-     }`;
+    `flex items-center gap-3 py-3 cursor-pointer transition-all
+    ${
+      currentPage === page
+        ? "bg-blue-100 border-r-2 border-blue-900 text-blue-900 font-semibold"
+        : "text-gray-600 hover:bg-gray-100 px-2"
+    }`;
 
   return (
-    <div
-      className="
-      w-full md:w-64 
-  h-[85vh] 
-  overflow-y-auto
-  border-r-2 border-gray-100 
-  flex md:flex-col justify-around md:justify-start
-    "
-    >
+    <div className="py-2  space-y-2">
+
       <Link
-        to={"/"}
+        to="/"
         onClick={() => setCurrentPage("Dashboard")}
         className={getClass("Dashboard")}
       >
-        <TbSmartHome />
-        <h2 className="hidden sm:block">Dashboard</h2>
+        <TbSmartHome size={20} />
+        <span>Dashboard</span>
       </Link>
 
       <Link
-        to={"/addBlog"}
+        to="/addblog"
         onClick={() => setCurrentPage("add")}
         className={getClass("add")}
       >
-        <TbLibraryPlus />
-        <h2 className="hidden sm:block">Add Blog</h2>
+        <TbLibraryPlus size={20} />
+        <span>Add Blog</span>
       </Link>
 
       <Link
-        to={"/blogLists"}
+        to="/blogLists"
         onClick={() => setCurrentPage("blog")}
         className={getClass("blog")}
       >
-        <HiOutlineClipboardList />
-        <h2 className="hidden sm:block">Blog Lists</h2>
+        <HiOutlineClipboardList size={20} />
+        <span>Blog Lists</span>
       </Link>
 
       <Link
-        to={"/comments"}
+        to="/comments"
         onClick={() => setCurrentPage("comment")}
         className={getClass("comment")}
       >
-        <FaRegCommentDots />
-        <h2 className="hidden sm:block">Comments</h2>
+        <FaRegCommentDots size={20} />
+        <span>Comments</span>
       </Link>
+
     </div>
   );
 };
