@@ -21,7 +21,7 @@ function App() {
       ) : (
         <>
           {/* HEADER */}
-          <header className="h-[70px] bg-white shadow flex-shrink-0 z-10">
+          <header className="h-[70px] bg-white border-b border-gray-300 flex-shrink-0 z-10">
             <Header />
           </header>
 
@@ -29,12 +29,12 @@ function App() {
           <div className="flex flex-1 overflow-hidden">
             
             {/* SIDEBAR */}
-            <aside className="w-64 bg-white border-r shadow-sm overflow-y-auto">
+            <aside className="w-64 bg-white border-r border-r-gray-300 overflow-y-auto">
               <Sidebar />
             </aside>
 
             {/* MAIN CONTENT */}
-            <main className="flex-1 overflow-y-auto p-6">
+            <main className="flex-1 overflow-y-auto p-6 bg-blue-50">
               <Routes>
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/addblog" element={<AddBlog />} />
