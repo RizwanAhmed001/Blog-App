@@ -58,7 +58,7 @@ export const adminRegister = async (req, res) => {
 
     const token = jwt.sign({ id: newAdmin._id, role: "admin" }, process.env.JWT_SECRET);
 
-    res.cookie("token", token, {
+    res.cookie("adminToken", token, {
       httpOnly: true, // secure (not accessible in JS)
       secure: process.env.NODE_ENV === "production", // change in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
@@ -111,7 +111,7 @@ export const adminLogin = async (req, res) => {
 
     const token = jwt.sign({ id: emailExist._id, role: "admin" }, process.env.JWT_SECRET);
 
-    res.cookie("token", token, {
+    res.cookie("adminToken", token, {
       httpOnly: true, // secure (not accessible in JS)
       secure: process.env.NODE_ENV === "production", // change in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
@@ -131,7 +131,7 @@ export const adminLogin = async (req, res) => {
 
 export const adminLogout = async (req, res) => {
   try {
-    res.clearCookie("token", {
+    res.clearCookie("adminToken", {
       httpOnly: true, // secure (not accessible in JS)
       secure: process.env.NODE_ENV === "production", // change in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",

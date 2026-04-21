@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 export const adminAuth = async (req, res, next) => {
   try {
-    const token = req.cookies.token;
+    const token = req.cookies.adminToken;
 
     if (!token) {
       return res.status(401).json({
@@ -12,6 +12,8 @@ export const adminAuth = async (req, res, next) => {
     }
 
     const decode = jwt.verify(token, process.env.JWT_SECRET);
+
+    console.log(decode)
 
 
     if (decode.role !== "admin") {

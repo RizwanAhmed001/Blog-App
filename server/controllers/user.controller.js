@@ -44,7 +44,7 @@ export const register = async (req, res) => {
 
     const token = jwt.sign({ id: newUser._id, role: "user" }, process.env.JWT_SECRET);
 
-    res.cookie("token", token, {
+    res.cookie("userToken", token, {
       httpOnly: true, // secure (not accessible in JS)
       secure: process.env.NODE_ENV === "production", // change in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
@@ -99,7 +99,7 @@ export const login = async (req, res) => {
 
     const token = jwt.sign({ id: emailExist._id, role: "user" }, process.env.JWT_SECRET);
 
-    res.cookie("token", token, {
+    res.cookie("userToken", token, {
       httpOnly: true, // secure (not accessible in JS)
       secure: process.env.NODE_ENV === "production", // change in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
@@ -122,7 +122,7 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    res.clearCookie("token", {
+    res.clearCookie("userToken", {
       httpOnly: true, // secure (not accessible in JS)
       secure: process.env.NODE_ENV === "production", // change in production
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",

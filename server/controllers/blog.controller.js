@@ -283,12 +283,24 @@ export const getAllBlogs = async (req, res) => {
         .json({ success: false, message: "Not Authorized!" });
     }
 
-    const userExist = await UserModel.findById(id);
+    const allBlogs = await BlogModel.find();
 
-    if (!userExist) {
+    return res
+      .status(200)
+      .json({ success: true, message: "All Blogs Recieved!", allBlogs });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getAllBlogsAdmin = async (req, res) => {
+  try {
+    const { id } = req.admin;
+
+    if (!id) {
       return res
-        .status(404)
-        .json({ success: false, message: "User Not Exist!" });
+        .status(403)
+        .json({ success: false, message: "Not Authorized!" });
     }
 
     const allBlogs = await BlogModel.find();
@@ -317,14 +329,6 @@ export const getSingleBlog = async (req, res) => {
       return res
         .status(403)
         .json({ success: false, message: "Blogid IS Required!" });
-    }
-
-    const userExist = await UserModel.findById(id);
-
-    if (!userExist) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User Not Exist!" });
     }
 
     const singleBlog = await BlogModel.findById(blogid).populate("admin", "name");;

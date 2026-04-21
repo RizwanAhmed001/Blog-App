@@ -12,12 +12,15 @@ const app = express();
 cloudinaryConfig();
 connectDB();
 
+
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: true,
     credentials: true,
-  }),
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
 );
+
 app.use(express.json());
 app.use(cookieParser());
 
