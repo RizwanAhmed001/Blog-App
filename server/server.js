@@ -12,13 +12,23 @@ const app = express();
 cloudinaryConfig();
 connectDB();
 
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
 
 app.use(
   cors({
-    origin: true,
+    origin: (origin, callback) => {
+      console.log("Origin hit:", origin);
+
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, origin); // ✅ IMPORTANT CHANGE
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
+  }),
 );
 
 app.use(express.json());
