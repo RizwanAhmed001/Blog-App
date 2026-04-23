@@ -350,3 +350,34 @@ export const getSingleBlog = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const allComments = async (req, res) => {
+  try {
+    const { id } = req.admin;
+
+    if (!id) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Not Authorized!" });
+    }
+
+    const blogs = await BlogModel.find().populate("comments.user", "name email");
+
+    // Extract all comments
+    const comments = blogs.flatMap(blog => 
+      blog.comments.map(comment => ({
+        ...comment._doc,
+        blogId: blog._id,
+        blogTitle: blog.blogTitle
+      }))
+    );
+
+    return res.status(200).json({
+      success: true,
+      comments
+    });
+
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
