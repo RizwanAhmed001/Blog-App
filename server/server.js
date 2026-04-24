@@ -17,7 +17,6 @@ const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
 app.use(
   cors({
     origin: (origin, callback) => {
-      console.log("Origin hit:", origin);
 
       if (!origin) return callback(null, true);
 
