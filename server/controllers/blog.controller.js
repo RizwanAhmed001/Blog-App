@@ -381,3 +381,34 @@ export const allComments = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const dashboardData = async (req, res) => {
+  try {
+    const { id } = req.admin;
+
+    if (!id) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Not Authorized!" });
+    }
+
+    const blogs = await BlogModel.find().populate("comments.user", "name email");
+
+    const comments = blogs.flatMap(blog => 
+      blog.comments.map(comment => ({
+        ...comment._doc,
+        blogId: blog._id,
+        blogTitle: blog.blogTitle
+      }))
+    );
+
+    const commentLen = comments.length;
+    const blogLen = blogs.length;
+
+    console.log(comments.length)
+    return res.json({success: true, message: "Data Received!", blogs, commentLen, blogLen});
+
+  } catch (error) {
+    return res.status(500).json({success: false, message: error.message})
+  }
+}
