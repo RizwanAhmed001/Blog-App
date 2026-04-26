@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import BlogContext from "../context/BlogContext";
-import Email from "../components/Email";
 import { BsStars } from "react-icons/bs";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { lazy } from "react";
+
+const Email = lazy(() => import("../components/Email"));
 
 const Blogs = () => {
   const { user, navigate, backendUrl } = useContext(BlogContext);
@@ -28,8 +30,6 @@ const Blogs = () => {
       if (response.data.success) {
         setAllBlogs(response.data.allBlogs);
         setSearchBlog(response.data.allBlogs);
-      } else {
-        toast.warn(response.data.message);
       }
     } catch (error) {
       toast.error(error.message);

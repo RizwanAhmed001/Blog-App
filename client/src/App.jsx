@@ -1,11 +1,14 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import Blogs from "./pages/Blogs";
-import Blog from "./pages/Blog";
-import Register from "./pages/Register";
-import Error from "./pages/Error";
 import { ToastContainer } from "react-toastify";
-import Hearder from "./components/Hearder";
-import Footer from "./components/Footer";
+import { lazy } from "react";
+
+
+const Blogs = lazy(() => import("./pages/Blogs"));
+const Blog = lazy(() => import("./pages/Blog"));
+const Register = lazy(() => import("./pages/Register"));
+const Error = lazy(() => import("./pages/Error"));
+const Hearder = lazy(() => import("./components/Hearder"));
+const Footer = lazy(() => import("./components/Footer"));
 
 function App() {
   const location = useLocation();
