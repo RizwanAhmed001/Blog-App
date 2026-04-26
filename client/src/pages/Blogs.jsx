@@ -56,7 +56,7 @@ const Blogs = () => {
 
   useEffect(() => {
     getBlogs();
-  }, [user]);
+  }, []);
 
   return (
     <div className="px-4 md:px-10 py-8">

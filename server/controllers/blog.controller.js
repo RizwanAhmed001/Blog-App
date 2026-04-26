@@ -405,7 +405,6 @@ export const dashboardData = async (req, res) => {
     const commentLen = comments.length;
     const blogLen = blogs.length;
 
-    console.log(comments.length)
     return res.json({success: true, message: "Data Received!", blogs, commentLen, blogLen});
 
   } catch (error) {
