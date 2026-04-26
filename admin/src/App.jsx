@@ -1,13 +1,15 @@
-import { ToastContainer } from "react-toastify";
-import Header from "./components'/Header";
-import Sidebar from "./components'/Sidebar";
 import { Route, Routes, useLocation } from "react-router-dom";
-import AdminLogin from "./pages/AdminLogin";
-import Dashboard from "./pages/Dashboard";
-import AddBlog from "./pages/AddBlog";
-import BlogLists from "./pages/BlogLists";
-import Comments from "./pages/Comments";
-import Error from "./pages/Error";
+import { ToastContainer } from "react-toastify";
+import { lazy } from "react";
+
+const Header = lazy(() => import("./components'/Header"));
+const Sidebar = lazy(() => import("./components'/Sidebar"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const AddBlog = lazy(() => import("./pages/AddBlog"));
+const BlogLists = lazy(() => import("./pages/BlogLists"));
+const Comments = lazy(() => import("./pages/Comments"));
+const Error = lazy(() => import("./pages/Error"));
 
 function App() {
   const location = useLocation();

@@ -76,25 +76,25 @@ const BlogLists = () => {
   }, []);
 
   return (
-    <div className="h-[78vh] flex flex-col p-3 bg-gray-50 rounded-xl shadow">
+    <div className="h-[78vh] flex flex-col p-3">
       
       {/* Heading */}
       <h2 className="text-2xl font-semibold mb-4">All Blogs</h2>
 
       {/* Table Container (Scrollable) */}
-      <div className="flex-1 overflow-y-auto border rounded-lg bg-white">
+      <div className="flex-1 overflow-y-auto rounded-lg bg-white">
         
         <table className="w-full text-sm text-left">
           
           {/* Header */}
-          <thead className="bg-gray-100 sticky top-0 z-10">
+          <thead className="bg-white sticky top-0 z-10">
             <tr>
               <th className="p-3">#</th>
-              <th className="p-3">Blog Title</th>
-              <th className="p-3">Date</th>
-              <th className="p-3">Status</th>
-              <th className="p-3">Action</th>
-              <th className="p-3 text-center">Delete</th>
+              <th className="p-3">BLOG TITLE</th>
+              <th className="p-3">DATE</th>
+              <th className="p-3">STATUS</th>
+              <th className="p-3">ACTION</th>
+              <th className="p-3 text-center">DELETE</th>
             </tr>
           </thead>
 
@@ -118,10 +118,10 @@ const BlogLists = () => {
               {blogData.map((blog, index) => (
                 <tr
                   key={blog._id}
-                  className="border-t hover:bg-gray-50 transition"
+                  className="border-t border-gray-200 hover:bg-gray-50 transition"
                 >
                   <td className="p-3">{index + 1}</td>
-                  <td className="p-3 font-medium">{blog.blogTitle}</td>
+                  <td className="p-3">{blog.blogTitle}</td>
 
                   <td className="p-3">
                     {new Date(blog.createdAt).toLocaleDateString()}
@@ -131,8 +131,8 @@ const BlogLists = () => {
                     <span
                       className={`px-2 py-1 rounded text-xs ${
                         blog.status
-                          ? "bg-green-100 text-green-600"
-                          : "bg-yellow-100 text-yellow-600"
+                          ? "text-green-400"
+                          : "text-yellow-400"
                       }`}
                     >
                       {blog.status ? "Published" : "Unpublish"}
@@ -141,7 +141,7 @@ const BlogLists = () => {
 
                   {/* Toggle Action */}
                   <td onClick={() => toggleStatus(blog._id)} className="p-3">
-                    <button className="text-blue-500 hover:underline">
+                    <button className="px-3 py-1 text-gray-500 border border-black rounded hover:underline">
                       {blog.status ? "Unpublish" : "Publish"}
                     </button>
                   </td>

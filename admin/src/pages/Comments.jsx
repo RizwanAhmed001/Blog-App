@@ -79,7 +79,7 @@ const Comments = () => {
   }, [approved]);
 
   return (
-    <div className="h-[80vh] flex flex-col p-4 bg-gray-50 rounded-xl shadow">
+    <div className="h-[78vh] flex flex-col p-4">
 
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
@@ -88,8 +88,8 @@ const Comments = () => {
         <div className="flex gap-2">
           <button
             onClick={() => setApproved(!approved)}
-            className={`px-3 py-1 rounded ${
-              approved ? "bg-green-500 text-white" : "bg-gray-200"
+            className={`px-4 py-1 rounded-2xl border border-black ${
+              approved ? "text-blue-900" : ""
             }`}
           >
             Approved
@@ -97,8 +97,8 @@ const Comments = () => {
 
           <button
             onClick={() => setApproved(false)}
-            className={`px-3 py-1 rounded ${
-              !approved ? "bg-red-500 text-white" : "bg-gray-200"
+            className={`px-4 py-1 rounded-2xl border border-black ${
+              !approved ? "text-blue-900" : ""
             }`}
           >
             Non Approved
@@ -107,14 +107,14 @@ const Comments = () => {
       </div>
 
       {/* Table */}
-      <div className="flex-1 overflow-y-auto border rounded-lg bg-white">
-        <table className="w-full text-sm text-left">
+      <div className="flex-1 overflow-y-auto rounded-lg bg-white">
+        <table className="w-full text-sm text-left z-10">
 
-          <thead className="bg-gray-100 sticky top-0">
+          <thead className="sticky top-0 bg-white">
             <tr>
-              <th className="p-3">Details</th>
-              <th className="p-3">Action</th>
-              <th className="p-3 text-center">Delete</th>
+              <th className="p-3">BLOG TITLE & COMMENT</th>
+              <th className="p-3">ACTION</th>
+              <th className="p-3 text-center">DELETE</th>
             </tr>
           </thead>
 
@@ -129,7 +129,7 @@ const Comments = () => {
               comments.map((comment) => (
                 <tr
                   key={comment._id}
-                  className="border-t hover:bg-gray-50"
+                  className="hover:bg-gray-50"
                 >
                   {/* ✅ FIXED structure */}
                   <td className="p-3 space-y-1">
@@ -141,7 +141,7 @@ const Comments = () => {
                   {/* Status */}
                   <td className="p-3" onClick={() => handleToggle(comment._id, comment.blogId)}>
                     <span
-                      className={`px-2 py-1 text-xs rounded cursor-pointer border  ${
+                      className={`px-2 py-1 text-xs rounded-2xl cursor-pointer border  ${
                         comment.approved
                           ? "bg-green-100 text-green-600"
                           : "bg-yellow-100 text-yellow-600"
@@ -153,7 +153,7 @@ const Comments = () => {
 
                   {/* Delete */}
                   <td className="p-3 text-center">
-                    <AiOutlineDelete onClick={() => handledelete(comment._id, comment.blogId)} className="text-red-500 cursor-pointer hover:scale-110 transition" />
+                    <AiOutlineDelete onClick={() => handledelete(comment._id, comment.blogId)} className="cursor-pointer hover:scale-110 transition" />
                   </td>
                 </tr>
               ))
