@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const BlogContextProvider = ({children}) => {
 
-  const backendUrl = "http://localhost:4000/api/user";
+  const backendUrl = "https://blog-app-server-u16o.onrender.com/api/user";
 
   const [user, setUser] = useState(localStorage.getItem("user") || null);
 
