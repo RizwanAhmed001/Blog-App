@@ -13,7 +13,7 @@ const AdminBlogProvider = ({children}) => {
 
   const navigate = useNavigate();
 
-  const backendUrl = "http://localhost:4000/api/admin"
+  const backendUrl = "https://blog-app-server-u16o.onrender.com/api/admin"
 
   const adminValue = {
     admin,
